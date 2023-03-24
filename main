@@ -1,0 +1,154 @@
+#include <iostream>
+#include <any>
+#include <vector>
+#include <queue>
+#include <string>
+#include <unordered_map>
+
+class Order {
+    public:
+    uint16_t firmId;
+    std::string symbol;
+    float price;
+    //need comparator
+    
+    //constructor
+    Order(uint16_t firm, std::string sym, float cost) {
+        firmId = firm;
+        symbol = sym;
+        price = cost;
+    }
+    
+    /*
+    //print
+    void print() {
+        cout << "Firm: " <<
+    }
+    */
+};
+//Order comparator
+class CompareOrdersMin {
+    public:
+    bool operator() (Order &one, Order &two) {
+        //floating point comparison
+        return one.price > two.price; //minPQ
+        //return one.price < two.price; //MaxPQ
+    }
+};
+class CompareOrdersMax {
+    public:
+    bool operator() (Order &one, Order &two) {
+        //floating point comparison
+        return one.price < two.price; //minPQ
+    }
+};
+
+class securityBuySell {
+    public:
+    std::string symbol;
+    std::priority_queue<Order, std::vector<Order>, CompareOrdersMin> buyOrders;
+    std::priority_queue<Order, std::vector<Order>, CompareOrdersMax> sellOrders;
+    
+    securityBuySell(std::string ticker) {
+        symbol = ticker;
+    }
+   
+}
+
+
+
+
+class MatchingEngine
+{
+    //declaring unordered set for storing tickers
+    //std::unordered_set<std::string> seenTickers;
+    std::unordered_map<std::string, securityBuySell> seenTickers;
+    
+    //Need Storage for orders
+    //Two priority queues for buy and sell for each stock
+    
+    
+    
+    //Helper function to check if security prioqueue exists
+    bool isNewTicker(Order &o) {
+        if (seenTickers.find(o.symbol) != seenTickers.end()) {
+            
+        }
+    }
+    
+    
+    
+    
+};
+
+int main()
+{
+    uint16_t N = 0;
+    
+    std::cin >> N;
+
+
+    char orderType;
+    uint16_t firmId;
+    std::string symbol;
+    char side;
+    float price;
+
+    //added
+    std::priority_queue<Order, std::vector<Order>, CompareOrdersMin> buyOrders;
+    std::priority_queue<Order, std::vector<Order>, CompareOrdersMax> sellOrders;
+
+
+    for (size_t i = 0; i < N; i++)
+    {
+        // feel free to modify how input is read from stdin
+        std::cin >> orderType >> firmId >> symbol;
+
+        switch (orderType) {
+            case 'N': {
+                std::cin >> side >> price;
+                //make order
+                Order newOrder {firmId, symbol, price};
+                if (side == 'B') {
+                    //buyOrders.push(newOrder);
+                }
+                else if (side == 'S') {
+                    sellOrders.push(newOrder);
+                }
+                break;
+            }
+            case 'M': {
+                std::cin >> price;
+                // todo
+                break; 
+            }
+            case 'C': {
+                // todo
+                break; 
+            }
+            default:
+                break;
+        }
+    }
+    //me.print();
+    
+    
+    /*
+    //TEST
+    Order newOrder1 {1738, "APPL", 1500.50};
+    Order newOrder2 {1738, "APPL", 1600.10};
+    Order newOrder3 {1738, "APPL", 1000.00};
+    std::priority_queue<Order, std::vector<Order>, CompareOrdersMax> testOrders;
+    testOrders.push(newOrder1);
+    testOrders.push(newOrder2);
+    testOrders.push(newOrder3);
+    
+    while( !testOrders.empty()) {
+        std::cout << testOrders.top().price << "\n";
+        testOrders.pop();
+    }
+    
+    
+    */
+    
+}
